@@ -4,6 +4,7 @@ import './App.css'
 import { Route, Link } from 'react-router-dom';
 import Search from './Search';
 import Booksshelf from './Booksshelf';
+import sortBy from 'sort-by';
 
 class BooksApp extends React.Component {
   state = {
@@ -12,7 +13,7 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     BooksAPI.getAll().then(books => {
-      this.setState({ books })
+      this.setState({ books : books.sort(sortBy('title')) })
     })
   }
 
@@ -22,6 +23,7 @@ class BooksApp extends React.Component {
         book.shelf = shelf;
         this.setState(state => ({
           books: state.books.filter(b => b.id !== book.id).concat([ book ])
+          
         }))
       })
     }
