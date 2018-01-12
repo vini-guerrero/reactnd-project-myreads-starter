@@ -19,9 +19,7 @@ class Books extends Component {
                         </div>
                     </div>
                     <div className="book-title">{data.title}</div>
-                    {data.authors.map((author, index) => (
-                        <div className="book-authors" key={index}>{author}</div>
-                    ))}
+                    <div className="book-authors" >{data.authors}</div>
                 </div>
             </li>
 
