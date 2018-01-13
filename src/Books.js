@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Books extends Component {
-    render() {
-        let { data, onMove } = this.props;
+const Books = (props) => {
+        let { data, onMove } = props;
         return (
             <li>
                 <div className="book">
@@ -22,9 +21,7 @@ class Books extends Component {
                     <div className="book-authors" >{data.authors}</div>
                 </div>
             </li>
-
         )
-    }
 }
 
 export default Books;
