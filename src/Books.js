@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Books = (props) => {
         let { data, onMove } = props;
@@ -24,4 +25,8 @@ const Books = (props) => {
         )
 }
 
+Books.PropTypes = {
+    data: PropTypes.array.isRequired,
+    onMove: PropTypes.func.isRequired
+  }
 export default Books;
