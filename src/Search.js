@@ -11,10 +11,16 @@ class Search extends Component {
 
   searchBook = (book) => {
     this.setState({ query: book })
-    if (this.state.query) {
+    if (this.state.query)  {
       BookAPI.search(this.state.query).then(books => {
+        if(!books.error)
         this.setState({ books })
-      })
+        else {
+          this.setState({ books: [] })
+        }
+      }).catch( () => (
+        console.log(`Ocorreu um erro ao pesquisar!`)
+      ))
     }
   }
 
@@ -40,9 +46,14 @@ class Search extends Component {
           </div>
           <div className="search-books-results">
             <ol className="books-grid">
-              { books
-              .map(book => (
-                <Books 
+              { books.length < 1 && (
+                <p>
+                No data to display
+                </p>
+              )}
+
+              { books.map(book => (
+                <Books
                 data={book}
                 key={book.id}
                 onMove={onMove}
