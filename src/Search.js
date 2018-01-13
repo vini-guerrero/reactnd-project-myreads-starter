@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as BookAPI from './BooksAPI';
 import Books from './Books';
+import { Debounce } from 'react-throttle';
 
 class Search extends Component {
   state = {
@@ -11,14 +12,15 @@ class Search extends Component {
 
   searchBook = (book) => {
     this.setState({ query: book })
-    if (this.state.query)  {
+    if (this.state.query) {
       BookAPI.search(this.state.query).then(books => {
-        if(!books.error)
-        this.setState({ books })
+        if (!books.error)
+
+          this.setState({ books })
         else {
           this.setState({ books: [] })
         }
-      }).catch( () => (
+      }).catch(() => (
         console.log(`Ocorreu um erro ao pesquisar!`)
       ))
     }
@@ -41,22 +43,24 @@ class Search extends Component {
                         However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                         you don't find a specific author or title. Every search is limited by search terms.
                       */}
-              <input onChange={(e) => this.searchBook(e.target.value)} type="text" placeholder="Search by title or author" />
+              <Debounce time="400" handler="onChange">
+                <input onChange={(e) => this.searchBook(e.target.value)} type="text" placeholder="Search by title or author" />
+              </Debounce>
             </div>
           </div>
           <div className="search-books-results">
             <ol className="books-grid">
-              { books.length < 1 && (
+              {books.length < 1 && (
                 <p>
-                No data to display
+                  No data to display
                 </p>
               )}
 
-              { books.map(book => (
+              {books.map(book => (
                 <Books
-                data={book}
-                key={book.id}
-                onMove={onMove}
+                  data={book}
+                  key={book.id}
+                  onMove={onMove}
                 />
               ))}
             </ol>
