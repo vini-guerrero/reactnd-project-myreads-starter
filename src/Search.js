@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import * as BookAPI from './BooksAPI';
 import Books from './Books';
 import { Debounce } from 'react-throttle';
+import PropTypes from 'prop-types';
 
 class Search extends Component {
   state = {
@@ -73,6 +74,9 @@ class Search extends Component {
   }
 }
 
-
+Search.PropTypes = {
+  books: PropTypes.array.isRequired,
+  onMove: PropTypes.func.isRequired
+}
 
 export default Search;
